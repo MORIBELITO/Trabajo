@@ -505,6 +505,35 @@ private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {
 
         this.dispose();
     }
+    
+private void registerDataToSQL() {
+        try {
+            // Establish database connection
+            Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+
+            // Prepare SQL statement for insertion
+            String sql = "INSERT INTO your_table_name (column1, column2, column3) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            // Set values for the prepared statement (adjust column indexes and data types accordingly)
+            preparedStatement.setString(1, jTextField9.getText()); // Assuming jTextField9 is the Cod_Pedido field
+            preparedStatement.setString(2, jTextField11.getText()); // Assuming jTextField11 is the Fecha field
+            preparedStatement.setString(3, TP_Most.getText()); // Assuming TP_Most is the Tipo Pedido field
+
+            // Execute the SQL statement
+            preparedStatement.executeUpdate();
+
+            // Close resources
+            preparedStatement.close();
+            connection.close();
+
+            // Display a success message (you can replace this with your own logic)
+            System.out.println("Data registered successfully to SQL!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception (display an error message, log the error, etc.)
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TP_Most;
     private javax.swing.JButton jButton1;
